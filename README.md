@@ -14,6 +14,14 @@ This is a demonstration of how to:
 - use S3 to store the Lambda functions code
 - use GitHub Actions to implement a CI/CD pipeline to deploy the infrastructure (see the Additional steps section)
 
+### Infrastructure diagram
+
+The diagram is clearly simplified, the actual infrastructure is more complex (23 resources in total). IAM is also omitted for brevity.
+
+![diagram](./code/diagrams/infrastructure.png)
+
+> The diagram is generated using [Diagram](https://diagrams.mingrammer.com), see under `code/diagrams` for the code.
+
 ### Project structure:
 - `terraform/`: contains the terraform files to provision the resources
 - `code/lambda/`: contains the code for the Lambda function
