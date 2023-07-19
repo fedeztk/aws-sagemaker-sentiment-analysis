@@ -7,7 +7,7 @@ This repo contains the terraform files needed to expose an endpoint for sentimen
 > The model used is a pre-trained model from HuggingFace. [Here](https://huggingface.co/SamLowe/roberta-base-go_emotions) is the link, all credits to the author. I am not responsible for any costs incurred by using this repo, please read the terraform files and understand what resources are being created before running them.
 
 This is a demonstration of how to:
-- use the API Gateway to expose a REST API
+- use the API Gateway to expose a REST API protected by an API key
 - use Lambda functions to process the requests and send them to SageMaker
 - use SageMaker to deploy a model as an inference endpoint
 - use DynamoDB to store the results of the requests
@@ -20,7 +20,16 @@ This is a demonstration of how to:
 
 ## Final result
 
-Screenshot of the endpoint in action using Hoppscotch:
+Authorized request:
+![auth](https://github.com/fedeztk/aws-sagemaker-sentiment-analysis/assets/58485208/0d5cdf78-7cb1-49fc-a327-bfad4495b89d)
+
+
+Unauthorized request:
+![no-auth](https://github.com/fedeztk/aws-sagemaker-sentiment-analysis/assets/58485208/f816bf42-0c91-4574-b113-3677c2742698)
+
+
+Authorized request (bad request):
+![bad_auth](https://github.com/fedeztk/aws-sagemaker-sentiment-analysis/assets/58485208/86317bfd-46b3-43e9-90a1-fdf5a8820140)
 
 ## Installation
 
