@@ -1,16 +1,16 @@
 resource "aws_lambda_function" "my_nlp_lambda_function" {
-  function_name = "NLPLambda"
-  s3_bucket = aws_s3_bucket.my_nlp_bucket.bucket
-  s3_key    = aws_s3_object.lambda_triggering_sagemaker.key
-  runtime = "python3.7"
-  handler = "lambda.lambda_handler"
+  function_name    = "NLPLambda"
+  s3_bucket        = aws_s3_bucket.my_nlp_bucket.bucket
+  s3_key           = aws_s3_object.lambda_triggering_sagemaker.key
+  runtime          = "python3.7"
+  handler          = "lambda.lambda_handler"
   source_code_hash = data.archive_file.lambda_triggering_sagemaker.output_base64sha256
-  role = aws_iam_role.nlp_application_role.arn
-  
+  role             = aws_iam_role.nlp_application_role.arn
+
   environment {
     variables = {
       ENDPOINT_NAME = module.huggingface_sagemaker.sagemaker_endpoint.name
-      TABLE_NAME = aws_dynamodb_table.nlp_data_table.name
+      TABLE_NAME    = aws_dynamodb_table.nlp_data_table.name
     }
   }
 }
@@ -46,14 +46,14 @@ resource "aws_iam_policy" "nlp_application_policy" {
           "dynamodb:Query",
           "dynamodb:UpdateItem"
         ],
-        Effect = "Allow",
+        Effect   = "Allow",
         Resource = aws_dynamodb_table.nlp_data_table.arn
       },
       {
         Action = [
           "sagemaker:InvokeEndpoint"
         ],
-        Effect = "Allow",
+        Effect   = "Allow",
         Resource = module.huggingface_sagemaker.sagemaker_endpoint.arn
       },
       {
@@ -70,6 +70,6 @@ resource "aws_iam_policy" "nlp_application_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "nlp_execution_policy_attachment" {
-    role = aws_iam_role.nlp_application_role.name
-    policy_arn = aws_iam_policy.nlp_application_policy.arn
+  role       = aws_iam_role.nlp_application_role.name
+  policy_arn = aws_iam_policy.nlp_application_policy.arn
 }

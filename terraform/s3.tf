@@ -1,7 +1,7 @@
-data "archive_file" "lambda_triggering_sagemaker" { 
-  type = "zip" 
+data "archive_file" "lambda_triggering_sagemaker" {
+  type        = "zip"
   source_dir  = "../code/lambda" # provide the path to the lambda folder
-  output_path = "lambda.zip" # provide output path including the file format (e.g. lambda.zip) 
+  output_path = "lambda.zip"     # provide output path including the file format (e.g. lambda.zip) 
 }
 
 

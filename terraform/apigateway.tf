@@ -1,20 +1,20 @@
 resource "aws_api_gateway_rest_api" "nlp_api_gw" {
-  name = "nlp_api_gw"
+  name        = "nlp_api_gw"
   description = "API Gateway for NLP lambda function"
 }
 
 
 resource "aws_api_gateway_resource" "nlp_api_gw_proxy" {
-    rest_api_id = aws_api_gateway_rest_api.nlp_api_gw.id
-    parent_id = aws_api_gateway_rest_api.nlp_api_gw.root_resource_id
-    path_part = "sentiment"
+  rest_api_id = aws_api_gateway_rest_api.nlp_api_gw.id
+  parent_id   = aws_api_gateway_rest_api.nlp_api_gw.root_resource_id
+  path_part   = "sentiment"
 }
-  
+
 resource "aws_api_gateway_method" "nlp_api_gw_method" {
-  rest_api_id   = aws_api_gateway_rest_api.nlp_api_gw.id
-  resource_id   = aws_api_gateway_resource.nlp_api_gw_proxy.id
-  http_method   = "ANY"
-  authorization = "NONE"
+  rest_api_id      = aws_api_gateway_rest_api.nlp_api_gw.id
+  resource_id      = aws_api_gateway_resource.nlp_api_gw_proxy.id
+  http_method      = "ANY"
+  authorization    = "NONE"
   api_key_required = true # this forces the api key to be required
 }
 
@@ -42,7 +42,7 @@ resource "aws_api_gateway_deployment" "nlp_api_gw_deployment" {
 resource "aws_lambda_permission" "apigw" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.my_nlp_lambda_function.function_name}"
+  function_name = aws_lambda_function.my_nlp_lambda_function.function_name
   principal     = "apigateway.amazonaws.com"
 
   # The /*/* portion grants access from any method on any resource
